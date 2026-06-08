@@ -1,0 +1,1299 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body{
+  overflow-x: hidden;
+  background: #f8f5ef;
+}
+
+/* HERO */
+
+.hero{
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.hero-image{
+  position: absolute;
+  inset: 0;
+  background-image:
+    url("./assets/hero.jpg");
+  background-size: cover;
+  background-position: center;
+  animation:
+    heroZoom 15s ease-in-out infinite alternate;
+}
+
+@keyframes heroZoom{
+  from{
+    transform: scale(1);
+  }
+  to{
+    transform: scale(1.08);
+  }
+}
+
+/* OSCURECER IMAGEN */
+
+.overlay{
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.52);
+}
+
+/* CONTENIDO */
+
+.hero-content{
+  position: relative;
+  z-index: 2;
+  color: #f8f5ef;
+  opacity: 0;
+  animation:
+    heroFade 2s ease forwards;
+}
+
+/* NOMBRES */
+
+.names{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+  font-family: 'Great Vibes', cursive;
+  font-size: 10rem;
+  font-weight: 400;
+  color: #f8f5ef;
+  text-shadow: 0 2px 15px rgba(0,0,0,0.35);
+}
+.ampersand{
+  font-family: 'Rouge Script', cursive;
+  font-size: 15rem;
+  font-weight: 400;
+  line-height: 1;
+  color: #d9d1bc;
+  transform: translateY(-6px) translateX(25px);
+}
+
+/* FECHA */
+
+.date{
+  margin-top: 1rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem;
+  letter-spacing: 0.3rem;
+  color: #f5f1e8;
+  text-shadow: 0 2px 15px rgba(0,0,0,0.35);
+}
+
+/* UBICACIÓN */
+
+.location{
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  letter-spacing: 0.5rem;
+  color: #f8f5ef;
+  text-shadow: 0 2px 15px rgba(0,0,0,0.35);
+  opacity: 0;
+  animation:
+    heroFadeLocation 2s ease .5s forwards;
+}
+
+@keyframes heroFade{
+  from{
+    opacity: 0;
+    transform:
+      translateY(20px);
+  }
+  to{
+    opacity: 1;
+    transform:
+      translateY(0);
+  }
+}
+
+@keyframes heroFadeLocation{
+  from{
+    opacity: 0;
+    transform:
+      translateX(-50%)
+      translateY(20px);
+  }
+  to{
+    opacity: 1;
+    transform:
+      translateX(-50%)
+      translateY(0);
+  }
+}
+
+.scroll-indicator{
+  position: absolute;
+  bottom: 110px;
+  left: 49.4%;
+  transform: translateX(-50%);
+  opacity: .6;
+  z-index: 3;
+}
+.scroll-indicator.hide{
+  opacity: 0;
+  transition:
+    opacity .8s ease;
+  pointer-events: none;
+}
+.scroll-indicator span{
+  display: block;
+  width: 16px;
+  height: 16px;
+  border-right: 2px solid rgba(255,255,255,.85);
+  border-bottom: 2px solid rgba(255,255,255,.85);
+  transform: rotate(45deg);
+  animation:
+    scrollBounce 2s infinite;
+}
+
+@keyframes scrollBounce{
+  0%,100%{
+    transform:
+      rotate(45deg)
+      translate(0,0);
+  }
+  50%{
+    transform:
+      rotate(45deg)
+      translate(8px,8px);
+  }
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px){
+  .names{
+    flex-direction: column;
+    gap: 0;
+    font-size: 4rem;
+  }
+  .ampersand{
+    font-size: 6rem;
+    line-height: 0.7;
+  }
+  .date{
+    font-size: 1.2rem;
+    letter-spacing: 0.2rem;
+  }
+  .location{
+    font-size: 0.9rem;
+    letter-spacing: 0.2rem;
+  }
+}
+
+/* =========================
+   GALERÍA SCROLL ANIMATION*/
+
+.reveal{
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 1s ease,
+    transform 1s ease;
+}
+.reveal.active{
+  opacity: 1;
+  transform: translateY(0);
+}
+.gallery-section{
+  padding: 8rem 6%;
+  background: #f8f5ef;
+}
+.gallery-title{
+  margin-bottom: 4rem;
+  text-align: center;
+  font-family: 'Great Vibes', cursive;
+  font-size: 4.5rem;
+  font-weight: 400;
+  color: #55624c;
+}
+
+/* GRID */
+
+.gallery-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+/* =========================
+   POLAROID EDITORIAL
+========================= */
+
+.gallery-item{
+  position: relative;
+  background: #f8f5ef;
+  padding:
+    1rem
+    1rem
+    4.5rem
+    1rem;
+  border-radius: 0.4rem;
+  overflow: hidden;
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.08);
+  transition:
+    transform 0.5s ease,
+    box-shadow 0.5s ease,
+    opacity 0.5s ease;
+  cursor: pointer;
+}
+
+/* ROTACIONES DIFERENTES */
+
+.gallery-item:nth-child(odd){
+  transform: rotate(-2deg);
+}
+.gallery-item:nth-child(even){
+  transform: rotate(2deg);
+}
+.gallery-item:nth-child(3n){
+  transform: rotate(-1deg);
+}
+
+/* IMAGEN */
+
+.gallery-item img{
+  width: 100%;
+  height: 340px;
+  object-fit: cover;
+  display: block;
+  transition:
+    transform 0.7s ease,
+    filter 0.7s ease;
+  filter: brightness(0.93);
+}
+
+/* HOVER */
+
+.gallery-item:hover{
+  transform:
+    translateY(-10px)
+    scale(1.03)
+    rotate(0deg);
+  z-index: 5;
+  filter: brightness(1.02);
+  box-shadow:
+    0 25px 50px rgba(0,0,0,0.16);
+}
+.gallery-item:hover img{
+  transform: scale(1.05);
+  filter:
+    brightness(1)
+    saturate(1.05);
+}
+
+/* LETRAS POLAROID */
+
+.photo-caption{
+  position: absolute;
+  bottom: 1.2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 2rem;
+  color: #55624c;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px){
+  .gallery-section{
+    padding: 5rem 5%;
+  }
+  .gallery-title{
+    font-size: 2rem;
+    margin-bottom: 3rem;
+  }
+  .gallery-grid{
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 1rem;
+    padding-bottom: 1rem;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+  .gallery-grid::-webkit-scrollbar{
+    display: none;
+  }
+  .gallery-grid{
+    scrollbar-width: none;
+  }
+  .gallery-item{
+    padding:
+      0.8rem
+      0.8rem
+      3.5rem
+      0.8rem;
+    flex: 0 0 80%;
+    scroll-snap-align: center;
+  }
+  .gallery-item img{
+    height: 260px;
+  }
+}
+
+/* =========================
+   COUNTDOWN EDITORIAL
+========================= */
+
+.countdown-section{
+  display: flex;
+  min-height: 100vh;
+  background: #55624c;
+}
+
+/* IMAGEN */
+
+.countdown-image{
+  width: 50%;
+  background-image: url("./assets/countdown.jpg");
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+.countdown-image::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.18);
+}
+
+/* CONTENIDO */
+
+.countdown-content{
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem;
+  text-align: center;
+}
+
+/* SAVE THE DATE */
+
+.save-date{
+  margin-bottom: 1.5rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 5rem;
+  letter-spacing: 0.5rem;
+  text-transform: uppercase;
+  color: #d9d1bc;
+}
+
+/* TITULO */
+
+.countdown-title{
+  font-family: 'Great Vibes', cursive;
+  font-size: 5rem;
+  font-weight: 400;
+  color: #f8f5ef;
+}
+
+/* FECHA */
+
+.wedding-date-full{
+  margin-top: -0.5rem;
+  margin-bottom: 5rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  letter-spacing: 0.35rem;
+  color: #f8f5ef;
+}
+
+/* CONTADOR */
+
+.countdown-container{
+  display: flex;
+  gap: 3rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* ITEM */
+
+.countdown-box{
+  position: relative;
+}
+
+/* NUMERO */
+
+.countdown-box span{
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 8rem;
+  font-weight: 300;
+  color: #f8f5ef;
+}
+
+/* TEXTO */
+
+.countdown-box p{
+  margin-top: 0.8rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  letter-spacing: 0.25rem;
+  text-transform: uppercase;
+  color: #d9d1bc;
+}
+
+/* LINEA */
+
+.countdown-box::after{
+  content: "";
+  position: absolute;
+  bottom: -1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 1px;
+  background: rgba(248,245,239,0.3);
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 968px){
+  .countdown-section{
+    flex-direction: column;
+  }
+  .countdown-image{
+    width: 100%;
+    height: 50vh;
+  }
+  .countdown-content{
+    width: 100%;
+    padding: 5rem 2rem;
+  }
+  .save-date{
+    font-size: 2rem;
+  }
+  .countdown-title{
+    font-size: 3.5rem;
+  }
+  .wedding-date-full{
+    margin-top: 0rem;
+    font-size: 1.3rem;
+    letter-spacing: 0.2rem;
+  }
+  .countdown-container{
+    gap: 2rem;
+  }
+  .countdown-box span{
+    font-size: 2.5rem;
+  }
+  .countdown-box p{
+    font-size: 1rem;
+    letter-spacing: 0.25rem;
+  }
+}
+
+/* =========================
+   CEREMONIA
+========================= */
+
+.ceremony-section{
+  padding: 8rem 5%;
+  background: #f8f5ef;
+  text-align: center;
+}
+
+/* TEXTO SUPERIOR */
+
+.section-label{
+  margin-bottom: 1.5rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.5rem;
+  letter-spacing: 0.45rem;
+  text-transform: uppercase;
+  color: #7b866f;
+}
+
+/* TITULO */
+
+.ceremony-title{
+  margin-bottom: 1rem;
+  font-family: 'Great Vibes', cursive;
+  font-size: 5rem;
+  font-weight: 400;
+  color: #55624c;
+}
+
+/* IMAGEN */
+
+.ceremony-image{
+  margin-bottom: 1rem;
+}
+
+.ceremony-image img{
+  width: 100%;
+  max-width: 375px;
+  object-fit: contain;
+  filter:
+    drop-shadow(0 10px 25px rgba(0,0,0,0.08));
+}
+
+/* DIRECCION */
+
+.ceremony-location{
+  max-width: 700px;
+  margin-inline: auto;
+  margin-bottom: 1.5rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  line-height: 1.6;
+  color: #55624c;
+}
+
+/* HORA */
+
+.ceremony-time{
+  margin-bottom: 3rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  letter-spacing: 0.3rem;
+  text-transform: uppercase;
+  color: #7b866f;
+}
+
+/* BOTON */
+
+.map-button{
+  display: inline-block;
+  padding: 1rem 2.5rem;
+  border: 1px solid #55624c;
+  border-radius: 999px;
+  text-decoration: none;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  letter-spacing: 0.2rem;
+  text-transform: uppercase;
+  color: #55624c;
+  transition:
+    background 0.4s ease,
+    color 0.4s ease,
+    transform 0.4s ease;
+}
+
+/* HOVER BOTON */
+
+.map-button:hover{
+  background: #55624c;
+  color: #f8f5ef;
+  transform: translateY(-3px);
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px){
+  .ceremony-section{
+    padding: 6rem 5%;
+  }
+  .section-label{
+  font-size: 1rem;
+  letter-spacing: 0.1rem;
+  }
+  .ceremony-title{
+  font-size: 2.5rem;
+  }
+  .ceremony-location{
+    font-size: 1.2rem;
+  }
+}
+
+/* =========================
+   DRESS CODE & REGALOS
+========================= */
+
+.details-section{
+  display: flex;
+  background: #55624c;
+  min-height: 90vh;
+}
+
+/* COLUMNAS */
+
+.detail-card{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 5rem 3rem;
+}
+
+/* TITULO PEQUEÑO */
+
+.section-label-light{
+  margin-bottom: 1rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  letter-spacing: 0.45rem;
+  text-transform: uppercase;
+  color: #d9d1bc;
+}
+
+/* TITULO */
+
+.detail-title{
+  margin-bottom: 3rem;
+  font-family: 'Great Vibes', cursive;
+  font-size: 4.5rem;
+  font-weight: 400;
+  color: #f8f5ef;
+}
+
+/* IMAGEN */
+
+.detail-image{
+  width: 100%;
+  max-width: 260px;
+  margin-top: -1rem;
+  margin-bottom: 2.5rem;
+  filter:
+    drop-shadow(
+      0 10px 25px rgba(0,0,0,0.15)
+    );
+}
+.dresscode-palette{
+  width: 100%;
+  max-width: 300px;
+  margin: -1rem auto 1.5rem;
+  display: block;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,.12);
+}
+.dresscode-note{
+  max-width: 430px;
+}
+.detail-image-gift{
+  width: 100%;
+  max-width: 275px;
+  margin-top: -5rem;
+  margin-bottom: -3rem;
+  filter:
+    drop-shadow(
+      0 10px 25px rgba(0,0,0,0.15)
+    )
+}
+
+/* TEXTO */
+
+.detail-text{
+  margin-bottom: 1rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem;
+  color: #f8f5ef;
+}
+
+/* SUBTEXTO */
+
+.detail-subtext{
+  max-width: 420px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: #d9d1bc;
+}
+
+/* MENSAJE REGALOS */
+
+.gift-message{
+  max-width: 500px;
+  font-size: 1.3rem;
+}
+
+/* LINEA CENTRAL */
+
+.detail-card:first-child{
+  border-right:
+    1px solid rgba(248,245,239,0.15);
+}
+
+/* BOTON REGALO*/
+
+.gift-button{
+  display: inline-block;
+  margin-top: 2rem;
+  padding: 1rem 2.5rem;
+  border: 1px solid #d9d1bc;
+  border-radius: 999px;
+  background: transparent;
+  text-decoration: none;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  letter-spacing: 0.2rem;
+  text-transform: uppercase;
+  color: #f8f5ef;
+  transition:
+    background 0.4s ease,
+    color 0.4s ease,
+    transform 0.4s ease;
+}
+.gift-button:hover{
+  background: #f8f5ef;
+  color: #55624c;
+  transform: translateY(-3px);
+}
+
+/* =========================
+   MODAL REGALOS
+========================= */
+
+.gift-modal{
+  position: fixed;
+  inset: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  background: rgba(0,0,0,.65);
+  backdrop-filter: blur(5px);
+  z-index: 99999;
+}
+.gift-modal.show{
+  display: flex;
+}
+.gift-modal-content{
+  position: relative;
+  width: 100%;
+  max-width: 550px;
+  padding: 3rem;
+  border-radius: 24px;
+  text-align: center;
+  background: #f8f5ef;
+  color: #55624c;
+}
+.gift-title{
+  margin-bottom: .5rem;
+  font-family: 'Great Vibes', cursive;
+  font-size: 3rem;
+}
+.account-card{
+  margin-bottom: 1.5rem;
+  padding: 1.5rem;
+  border: 1px solid rgba(85,98,76,.15);
+  border-radius: 16px;
+}
+.account-card h4{
+  margin-bottom: .5rem;
+  font-size: 1.2rem;
+}
+.account-number{
+  margin: 1rem 0;
+  font-size: 1.2rem;
+  letter-spacing: .08rem;
+  font-weight: 600;
+}
+.gift-close{
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  border: none;
+  background: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: #55624c;
+}
+.copy-button{
+  padding: 1rem 1rem;
+  letter-spacing: 0.1rem;
+  background-color: #f8f5ef;
+}
+
+/* Alerta */
+
+.toast{
+  position: fixed;
+  left: 50%;
+  bottom: 30px;
+  transform:
+    translateX(-50%)
+    translateY(30px);
+  padding: 1rem 1rem;
+  border-radius: 30px;
+  background: #55624c;
+  color: #f8f5ef;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  letter-spacing: .05rem;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity .4s ease,
+    transform .4s ease,
+    visibility .4s;
+  z-index: 100000;
+  box-shadow:
+    0 8px 25px rgba(0,0,0,.2);
+}
+.toast.show{
+  opacity: 1;
+  visibility: visible;
+  transform:
+    translateX(-50%)
+    translateY(0);
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 900px){
+  .details-section{
+    flex-direction: column;
+  }
+  .detail-card:first-child{
+    border-right: none;
+    border-bottom:
+      1px solid rgba(248,245,239,0.15);
+  }
+  .detail-title{
+    font-size: 2.8rem;
+  }
+  .dresscode-palette{
+    max-width: 260px;
+    margin: -1rem auto 1.5rem;
+    border-radius: 12px;
+  }
+  .dresscode-note{
+    font-size: 1.2rem;
+    line-height: 1.6;
+  }
+  .gift-modal-content{
+    padding: 1.5rem;
+  }
+  .gift-title{
+    font-size: 1.8rem;
+  }
+}
+
+/* =========================
+   RSVP
+========================= */
+
+.rsvp-section{
+  display: flex;
+  min-height: 100vh;
+  background: #f8f5ef;
+}
+
+/* IMAGEN */
+
+.rsvp-image{
+  width: 50%;
+}
+.rsvp-image img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* CONTENIDO */
+
+.rsvp-content{
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 5rem;
+}
+
+/* TITULO */
+
+.rsvp-title{
+  font-family: 'Great Vibes', cursive;
+  font-size: 5rem;
+  color: #55624c;
+  margin-bottom: 1rem;
+}
+
+/* FECHA LIMITE */
+
+.rsvp-deadline{
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  color: #6b745f;
+  margin-bottom: 3rem;
+}
+
+/* FORM */
+
+.rsvp-form{
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.form-group{
+  display: flex;
+  flex-direction: column;
+}
+.form-group label{
+  margin-bottom: .5rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  color: #55624c;
+}
+.form-group input,
+.form-group textarea{
+  padding: 1rem;
+  border: 1px solid #d9d1bc;
+  border-radius: 12px;
+  background: white;
+  font-family: inherit;
+  font-size: 1rem;
+}
+.form-group input:focus,
+.form-group textarea:focus{
+  outline: none;
+  border-color: #55624c;
+}
+
+/* ADULTOS / NIÑOS */
+
+.guest-row{
+  display: flex;
+  gap: 1rem;
+}
+
+.guest-row .form-group{
+  flex: 1;
+}
+
+/* BOTON */
+
+.rsvp-button{
+  display: inline-block;
+  align-self: center;
+  margin-top: 2rem;
+  padding: 1rem 2.5rem;
+  border: 1px solid #55624c;
+  border-radius: 999px;
+  background: transparent;
+  text-decoration: none;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  letter-spacing: 0.2rem;
+  text-transform: uppercase;
+  color: #55624c;
+  cursor: pointer;
+  transition:
+    background 0.4s ease,
+    color 0.4s ease,
+    transform 0.4s ease;
+}
+.rsvp-button:hover{
+  background: #55624c;
+  color: #f8f5ef;
+  transform: translateY(-3px);
+}
+
+.rsvp-closed-message{
+  margin-top: 1rem;
+  text-align: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  color: #7b866f;
+}
+
+/* =========================
+   MENSAJE DE EXITO RSVP
+========================= */
+
+.success-card{
+  display: none;
+  opacity: 0;
+  margin-top: 2rem;
+  padding: 2rem;
+  text-align: center;
+  border: 1px solid rgba(85,98,76,.2);
+  border-radius: 1.5rem;
+  background: white;
+  transition: all .8s ease;
+}
+.success-card.show{
+  display: block;
+  opacity: 1;
+  animation: fadeUp .8s ease forwards;
+}
+.success-check{
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #55624c;
+}
+.success-card h3{
+  margin-bottom: 1rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem;
+  color: #55624c;
+}
+.success-card p{
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem;
+  color: #7b866f;
+}
+
+@keyframes fadeUp{
+  from{
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to{
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 900px){
+  .rsvp-section{
+    flex-direction: column;
+  }
+  .rsvp-image{
+    width: 100%;
+    height: 50vh;
+  }
+  .rsvp-content{
+    width: 100%;
+    padding: 3rem 2rem;
+  }
+  .rsvp-title{
+    font-size: 3.5rem;
+  }
+  .guest-row{
+   flex-direction: column;
+  }
+  .rsvp-button{
+    font-size: .9rem;
+    letter-spacing: 0.1rem;
+  }
+}
+
+/* =========================
+   FINAL
+========================= */
+
+.final-section{
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-image:
+    url("./assets/final-photo.jpg");
+  background-size: cover;
+  background-position: center;
+}
+.final-overlay{
+  position: absolute;
+  inset: 0;
+  background:
+    rgba(0,0,0,.55);
+}
+.final-content{
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  padding: 2rem;
+}
+.final-label{
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  font-family: 'Cormorant Garamond', serif;
+  letter-spacing: .4rem;
+  text-transform: uppercase;
+  color: #f8f5ef;
+  text-shadow:
+    0 2px 6px rgba(0,0,0,.45);
+}
+.final-title{
+  margin-bottom: 2rem;
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 400;
+  line-height: 1.3;
+  color: #ffffff;
+  text-shadow:
+    0 2px 8px rgba(0,0,0,.45);
+}
+
+@media (max-width: 768px){
+  .final-label{
+    font-size: 1.5rem;
+    letter-spacing: .3rem;
+  }
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+.wedding-footer{
+  padding: .8rem;
+  text-align: center;
+  background: #55624c;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  letter-spacing: .2rem;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* =========================
+   MUSIC PLAYER
+========================= */
+
+.music-player{
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  width: 70px;
+  height: 70px;
+  cursor: pointer;
+  z-index: 9999;
+}
+
+/* Disco */
+
+.vinyl{
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle,
+      #55624c 0%,
+      #55624c 12%,
+      #f8f5ef 13%,
+      #f8f5ef 15%,
+      #2f352b 16%,
+      #2f352b 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: spin 4s linear infinite;
+  animation-play-state: paused;
+}
+.vinyl.playing{
+  animation-play-state: running;
+}
+.vinyl::before{
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border-radius: 50%;
+  background:
+    repeating-radial-gradient(
+      circle,
+      rgba(255,255,255,.08) 0px,
+      rgba(255,255,255,.08) 1px,
+      transparent 2px,
+      transparent 5px
+    );
+}
+.vinyl::after{
+  content: "";
+  position: absolute;
+  top: -20%;
+  left: 15%;
+  width: 30%;
+  height: 140%;
+  transform: rotate(25deg);
+  background:
+    linear-gradient(
+      to right,
+      rgba(255,255,255,0),
+      rgba(255,255,255,.18),
+      rgba(255,255,255,0)
+    );
+  pointer-events: none;
+}
+
+/* Centro del disco */
+
+.vinyl-center{
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #f8f5ef;
+  border: 2px solid rgba(0,0,0,.15);
+}
+.music-player.playing{
+  filter:
+    drop-shadow(0 0 10px rgba(217,209,188,.35));
+}
+
+@keyframes spin{
+  from{
+    transform: rotate(0deg);
+  }
+  to{
+    transform: rotate(360deg);
+  }
+}
+
+/* =========================
+   MUSIC HINT
+========================= */
+
+.music-hint{
+  position: fixed;
+  bottom: 48px;
+  right: 110px;
+  z-index: 9998;
+  color: rgba(248,245,239,.75);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  letter-spacing: .05rem;
+  white-space: nowrap;
+  text-shadow:
+    0 2px 8px rgba(0,0,0,.25);
+  animation:
+    pulseHint 2s ease-in-out infinite;
+  transition:
+    opacity .8s ease,
+    transform .8s ease;
+}
+.music-hint.hide{
+  opacity: 0;
+  transform:
+    translateX(20px);
+  pointer-events: none;
+}
+
+@keyframes pulseHint{
+  0%,100%{
+    transform: translateX(0);
+  }
+  50%{
+    transform: translateX(-6px);
+  }
+}
+
+@media (max-width: 968px){
+  .music-hint{
+    display: none;
+  }
+}
